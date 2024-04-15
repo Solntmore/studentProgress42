@@ -14,7 +14,7 @@ public class DBManager {
         ArrayList<Student> students = new ArrayList<>();
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/students_42?user=root&password=root");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/students_42?user=root&password=HuralA21");
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM students WHERE status = 1;");
             while (rs.next()) {
@@ -26,6 +26,20 @@ public class DBManager {
                 student.setDate(rs.getDate("date"));
                 students.add(student);
             }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return students;
+    }
+
+    public static List<Student> createStudent(String surname, String name, String groups, String date) {
+        ArrayList<Student> students = new ArrayList<>();
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/students_42?user=root&password=HuralA21");
+            Statement stmt = conn.createStatement();
+            stmt.execute("INSERT INTO `students_42`.`students` (`surname`, `name`, `groups`, `date`) VALUES ('"
+                    + name + "', '" + surname + "', '" + groups + "', '" + date + "');");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
