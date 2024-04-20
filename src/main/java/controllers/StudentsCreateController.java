@@ -9,7 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @WebServlet (name = "StudentsCreateController", urlPatterns = "/students-create")
 public class StudentsCreateController extends HttpServlet {
@@ -25,7 +30,29 @@ public class StudentsCreateController extends HttpServlet {
        String groups = req.getParameter("groups");
        String date = req.getParameter("date");
 
-       DBManager.createStudent(surname, name, groups, date);
+       if (surname == null || surname.trim().isEmpty() || name == null || name.trim().isEmpty() || groups == null || groups.trim().isEmpty()
+               || date == null || date.trim().isEmpty()) {
+           req.setAttribute("message", 1);
+           req.getRequestDispatcher("WEB-INF/student-create.jsp").forward(req, resp);
+           return;
+       }
+
+
+       //30/12/2024 - -> 2024-04-30
+        // 2024-04-30 - -> String
+
+        DateFormat format = new SimpleDateFormat("dd/mm/yyyy", Locale.ENGLISH);
+        Date object = null;
+        try {
+            object = format.parse(date);
+        } catch (ParseException e) {
+            throw new RuntimeException();
+        }
+
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dateTimeToDb = formatter.format(object);
+
+       DBManager.createStudent(surname, name, groups, dateTimeToDb);
        resp.sendRedirect("/students");
     }
 }

@@ -18,7 +18,7 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Kelly+Slab&display=swap" rel="stylesheet">
-    <script type="text/javascript" src="../js/functions.js"/>
+    <script type="text/javascript" src="../js/functions.js"></script>
     <title>student</title>
 </head>
 <body>
@@ -47,7 +47,7 @@
     <h2 class="heading-secondary">
         список студентов
     </h2>
-    <table class="student-table" border="1">
+    <table class="student-table" border="1" bor>
         <tr>
             <th>&nbsp</th>
             <th>фамилия</th>
@@ -58,7 +58,7 @@
 
         <c:forEach items="${students}" var="st">
             <tr>
-                <td> <input type="checkbox" id="" value="${st.id}">
+                <td> <input type="checkbox" class="checkbox" id="idModify" value="${st.id}">
                 </td>
                 <td>${st.surname}</td>
                 <td>${st.name}</td>
@@ -76,9 +76,10 @@
 
 </aside>
 
-<form action="/students-modify" method="get">
-    <input type="hidden" name="hiddenModifyId">
+<form action="/students-modify" method="get" id="formToModify">
+    <input type="hidden" name="hiddenModifyId" id="hiddenToModify">
 </form>
 
 </body>
 </html>
+

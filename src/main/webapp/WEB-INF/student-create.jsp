@@ -6,7 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,8 +17,16 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Kelly+Slab&display=swap" rel="stylesheet">
     <title>student-creating</title>
+    <script>
+        $( function() {
+            $( "#datepicker" ).datepicker({ dateFormat: 'dd/mm/yy'});
+        } );
+    </script>
 </head>
 <body>
 <aside class="navigation">
@@ -54,12 +64,15 @@
     <table>
         <tr>
             <td class="cell1" align="right"> <h3>дата поступления</h3></td>
-            <td> <input name="date" type="text" id="name"></td>
+            <td> <input name="date" type="text" id="datepicker"></td>
         </tr>
     </table>
     <br>
 
     <input type="submit" value=" создать" class="field">
+        <c:if test="${message eq 1}">
+            <h4>Поля не должны быть пустыми</h4>
+        </c:if>
     </form>
 
 
@@ -70,7 +83,6 @@
 </main>
 <aside class="logout">
     <a href="#" class="logout-btn">logout</a>
-
 </aside>
 
 
